@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="example">
+  <component name="FlexBuildConfigurationManager" active="example-build">
     <configurations>
-      <configuration name="example" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/bin" wrapper-template-path="$MODULE_DIR$/html-template">
+      <configuration name="example-build" pure-as="true" main-class="Main" output-file="example-build.swf" output-folder="$MODULE_DIR$/bin">
         <dependencies target-player="19.0">
           <entries>
-            <entry library-name="CachedSprites" library-level="project">
+            <entry library-name="cachedSprites" library-level="project">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-id="022246f0-77e5-47eb-b05b-d476b87015e3">
+            <entry library-id="6ea229a7-22c4-401a-96b7-ceee46acfdc2">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -29,10 +29,11 @@
     </content>
     <orderEntry type="jdk" jdkName="AIRSDK_19" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="CachedSprites" level="project" />
+    <orderEntry type="library" exported="" name="exampleData" level="project" />
+    <orderEntry type="library" exported="" name="cachedSprites" level="project" />
     <orderEntry type="module-library" exported="">
       <library type="flex">
-        <properties id="022246f0-77e5-47eb-b05b-d476b87015e3" />
+        <properties id="6ea229a7-22c4-401a-96b7-ceee46acfdc2" />
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/exampleData.swc!/" />
         </CLASSES>
@@ -42,4 +43,3 @@
     </orderEntry>
   </component>
 </module>
-
