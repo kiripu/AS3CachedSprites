@@ -32,6 +32,7 @@ public class CachedSpritesManager
 
     public function enqueue(object:DisplayObject, name:String, animationName:String = null):void
     {
+        if (object is MovieClip) (object as MovieClip).gotoAndStop(1);
         _queue.push(QueueElement.create(object, name, animationName));
     }
 
@@ -70,8 +71,11 @@ public class CachedSpritesManager
     public function getAnimatedSprite(name:String):CachedAnimatedSprite
     {
         var data:CacheElement = _cachedData[name];
-        if (data && data.cachedFrameData == null) return new CachedAnimatedSprite(
-                data.cachedFrameDataVector, data.cachedAnimationDataDictionary);
+        if (data && data.cachedFrameData == null)
+            return new CachedAnimatedSprite(
+                    data.cachedFrameDataVector,
+                    data.cachedAnimationDataDictionary,
+                    data.cachedAnimationsNames);
         else return null;
     }
 
@@ -96,21 +100,25 @@ public class CachedSpritesManager
         var bd:BitmapData;
         var cachedFrames:Vector.<CachedFrameData>;
         var cachedAnimations:Dictionary;
+        var cachedAnimationsNames:Vector.<String>;
         var cacheElement:CacheElement = _cachedData[name];
         if (cacheElement == null)
         {
             cachedFrames = new <CachedFrameData>[];
             cachedAnimations = new Dictionary();
-            cacheElement = _cachedData[name] = CacheElement.create(null, cachedFrames, cachedAnimations);
+            cachedAnimationsNames = new <String>[];
+            cacheElement = _cachedData[name] = CacheElement.create(null, cachedFrames, cachedAnimations, cachedAnimationsNames);
         }
         cachedFrames = cacheElement.cachedFrameDataVector;
         cachedAnimations = cacheElement.cachedAnimationDataDictionary;
+        cachedAnimationsNames = cacheElement.cachedAnimationsNames;
 
         if (cachedAnimations[animationName] != null) throw new Error("Animation exist");
         else
         {
             var totalFrames:int = movieClip.totalFrames;
             cachedAnimations[animationName] = CachedAnimationData.create(animationName, cachedFrames.length, totalFrames);
+            cachedAnimationsNames.push(animationName);
 
             for (var i:int = 0; i < totalFrames; i++)
             {

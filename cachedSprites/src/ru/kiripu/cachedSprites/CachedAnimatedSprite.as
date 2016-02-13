@@ -8,6 +8,7 @@ import flash.utils.Dictionary;
 
 import ru.kiripu.cachedSprites.data.CachedAnimationData;
 import ru.kiripu.cachedSprites.data.CachedFrameData;
+import ru.kiripu.cachedSprites.error.CachedSpritesError;
 
 public class CachedAnimatedSprite
 {
@@ -17,20 +18,22 @@ public class CachedAnimatedSprite
     private var _frames:Vector.<CachedFrameData>;
     private var _animations:Dictionary;
 
-    private var _timeToFps:Number;
-    private var _currFrame:Number;
+    private var _currFrame:int;
+    private var _currTime:Number;
     private var _frameData:CachedFrameData;
     private var _animationData:CachedAnimationData;
     private var _isPlaying:Boolean;
     private var _destPoint:Point;
+    private var _animationsNames:Vector.<String>;
 
-    public function CachedAnimatedSprite(frames:Vector.<CachedFrameData>, animations:Dictionary, fps:Number = 60)
+    public function CachedAnimatedSprite(frames:Vector.<CachedFrameData>, animations:Dictionary, animationsNames:Vector.<String>)
     {
-        _timeToFps = 1 / fps;
         _frames = frames;
         _animations = animations;
-        _animationData = _animations["idle"];
+        _animationsNames = animationsNames;
+        _animationData = _animations[_animationsNames[0]];
         _currFrame = 0;
+        _currTime = 0;
         _isPlaying = true;
         _destPoint = new Point();
     }
@@ -48,9 +51,11 @@ public class CachedAnimatedSprite
     {
         if (_isPlaying)
         {
-            _currFrame = (_currFrame + deltaTime * 30) % _animationData.totalFrames + _animationData.startFrame;
-            _frameData = _frames[int(_currFrame)];
-	        trace(_currFrame);
+            _currTime += deltaTime;
+            var newFrame:int = (_currTime * 30) % _animationData.totalFrames + _animationData.startFrame;
+            if (_currFrame == newFrame) onFrameChanged();
+            _currFrame = newFrame;
+            _frameData = _frames[newFrame];
         }
     }
 
@@ -68,5 +73,27 @@ public class CachedAnimatedSprite
     public function play():void {_isPlaying = true;}
 
     public function stop():void {_isPlaying = false;}
+
+    public function gotoAndPlay(animationName:String):void
+    {
+        if (gotoAnimation(animationName)) play();
+    }
+
+    public function gotoAndStop(animationName:String):void
+    {
+        if (gotoAnimation(animationName)) stop();
+    }
+
+    private function gotoAnimation(animationName:String):Boolean
+    {
+        _animationData = _animations[animationName];
+        if (_animationData != null) return true;
+        else throw new Error(CachedSpritesError.ERROR_NO_ANIMATION_IN_SPRITE);
+    }
+
+    private function onFrameChanged():void
+    {
+
+    }
 }
 }
