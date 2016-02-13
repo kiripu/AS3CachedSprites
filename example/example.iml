@@ -5,10 +5,10 @@
       <configuration name="example-build" pure-as="true" main-class="Main" output-file="example-build.swf" output-folder="$MODULE_DIR$/bin">
         <dependencies target-player="19.0">
           <entries>
-            <entry library-name="cachedSprites" library-level="project">
+            <entry library-id="6ea229a7-22c4-401a-96b7-ceee46acfdc2">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-id="6ea229a7-22c4-401a-96b7-ceee46acfdc2">
+            <entry library-id="51e16a73-290e-47f2-b07f-7fbec918f093">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -36,6 +36,16 @@
         <properties id="6ea229a7-22c4-401a-96b7-ceee46acfdc2" />
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/exampleData.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="51e16a73-290e-47f2-b07f-7fbec918f093" />
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../cachedSprites/bin/cachedSprites.swc!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

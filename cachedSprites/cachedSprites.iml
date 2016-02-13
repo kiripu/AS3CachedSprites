@@ -2,7 +2,7 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="cachedSprites">
     <configurations>
-      <configuration name="cachedSprites" pure-as="true" output-type="Library" output-file="cachedSprites.swc" output-folder="$MODULE_DIR$/../swc">
+      <configuration name="cachedSprites" pure-as="true" output-type="Library" output-file="cachedSprites.swc" output-folder="$MODULE_DIR$/bin">
         <dependencies target-player="19.0">
           <sdk name="AIRSDK_19" />
         </dependencies>
