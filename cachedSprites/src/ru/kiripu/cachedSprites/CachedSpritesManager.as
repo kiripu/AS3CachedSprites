@@ -23,11 +23,13 @@ public class CachedSpritesManager
     private var _cachedData:Dictionary;
     private var _queue:Array;
     private var _matrix:Matrix;
+    private var _framerate:int;
 
-    public function CachedSpritesManager()
+    public function CachedSpritesManager(framerate:int = 30)
     {
         _queue = [];
         _cachedData = new Dictionary();
+        _framerate = framerate;
     }
 
     public function enqueue(object:DisplayObject, name:String, animationName:String = null):void
@@ -75,7 +77,8 @@ public class CachedSpritesManager
             return new CachedAnimatedSprite(
                     data.cachedFrameDataVector,
                     data.cachedAnimationDataDictionary,
-                    data.cachedAnimationsNames);
+                    data.cachedAnimationsNames,
+                    _framerate);
         else return null;
     }
 

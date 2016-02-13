@@ -25,12 +25,16 @@ public class CachedAnimatedSprite
     private var _isPlaying:Boolean;
     private var _destPoint:Point;
     private var _animationsNames:Vector.<String>;
+    private var _framerate:int;
 
-    public function CachedAnimatedSprite(frames:Vector.<CachedFrameData>, animations:Dictionary, animationsNames:Vector.<String>)
+    public function CachedAnimatedSprite(
+            frames:Vector.<CachedFrameData>,
+            animations:Dictionary, animationsNames:Vector.<String>, framerate:int)
     {
         _frames = frames;
         _animations = animations;
         _animationsNames = animationsNames;
+        _framerate = framerate;
         _animationData = _animations[_animationsNames[0]];
         _currFrame = 0;
         _currTime = 0;
@@ -52,7 +56,7 @@ public class CachedAnimatedSprite
         if (_isPlaying)
         {
             _currTime += deltaTime;
-            var newFrame:int = (_currTime * 30) % _animationData.totalFrames + _animationData.startFrame;
+            var newFrame:int = (_currTime * _framerate) % _animationData.totalFrames + _animationData.startFrame;
             if (_currFrame == newFrame) onFrameChanged();
             _currFrame = newFrame;
             _frameData = _frames[newFrame];
